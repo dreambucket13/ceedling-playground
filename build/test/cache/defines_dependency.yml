@@ -1,0 +1,5 @@
+---
+src/function1.c:
+- TEST
+build/test/mocks/mock_function2.c:
+- TEST
