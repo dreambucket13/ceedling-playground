@@ -25,4 +25,5 @@ void test_doFirstThing_Should_NotDoSecondThingIfConditionIsFalse(void)
 
     doFirstThing();
 
+
 }

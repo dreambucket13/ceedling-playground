@@ -43,9 +43,13 @@ void test_doFirstThing_Should_NotDoSecondThingIfConditionIsFalse(void)
 
     setCondition(0);
 
+    doSecondThing_CMockExpect(25);
+
 
 
     doFirstThing();
+
+
 
 
 
