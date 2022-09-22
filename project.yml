@@ -55,6 +55,7 @@
   :mock_prefix: mock_
   :when_no_prototypes: :warn
   :enforce_strict_ordering: TRUE
+  :fail_on_unexpected_calls: TRUE
   :plugins:
     - :ignore
     - :callback
