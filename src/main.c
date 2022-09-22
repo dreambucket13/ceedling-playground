@@ -4,6 +4,6 @@
 
 void main(){
 
-    doFirstThing();
+    FUN1_doFirstThing();
 
 }

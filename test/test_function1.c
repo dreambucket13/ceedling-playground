@@ -10,20 +10,28 @@ void tearDown(void)
 {
 }
 
-void test_doFirstThing_Should_DoSecondThingIfConditionIsTrue(void)
+void test_FUN1_doFirstThing_Should_DoSecondThingIfConditionIsTrue(void)
 {   
-    setCondition(1);
-    doSecondThing_Expect();
+    FUN1_setCondition(1);
+    FUN2_doSecondThing_Expect();
     
-    doFirstThing();
+    FUN1_doFirstThing();
 
 }
 
-void test_doFirstThing_Should_NotDoSecondThingIfConditionIsFalse(void)
+void test_FUN1_doFirstThing_Should_NotDoSecondThingIfConditionIsFalse(void)
 {   
-    setCondition(0);
+    FUN1_setCondition(0);
 
-    doFirstThing();
+    FUN1_doFirstThing();
 
+}
+
+void test_FUN1_staticFunctionTest_Should_ReturnOneAndNotExpectFUN3Calls(void)
+{   
+
+    FUN2_returnOne_ExpectAndReturn(1);
+
+    TEST_ASSERT_EQUAL(1,FUN1_staticFunctionTest());
 
 }

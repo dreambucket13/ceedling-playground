@@ -24,16 +24,26 @@ void mock_function2_Verify(void);
 
 
 
-#define doSecondThing_Ignore() doSecondThing_CMockIgnore()
-void doSecondThing_CMockIgnore(void);
-#define doSecondThing_StopIgnore() doSecondThing_CMockStopIgnore()
-void doSecondThing_CMockStopIgnore(void);
-#define doSecondThing_Expect() doSecondThing_CMockExpect(__LINE__)
-void doSecondThing_CMockExpect(UNITY_LINE_TYPE cmock_line);
-typedef void (* CMOCK_doSecondThing_CALLBACK)(int cmock_num_calls);
-void doSecondThing_AddCallback(CMOCK_doSecondThing_CALLBACK Callback);
-void doSecondThing_Stub(CMOCK_doSecondThing_CALLBACK Callback);
-#define doSecondThing_StubWithCallback doSecondThing_Stub
+#define FUN2_doSecondThing_Ignore() FUN2_doSecondThing_CMockIgnore()
+void FUN2_doSecondThing_CMockIgnore(void);
+#define FUN2_doSecondThing_StopIgnore() FUN2_doSecondThing_CMockStopIgnore()
+void FUN2_doSecondThing_CMockStopIgnore(void);
+#define FUN2_doSecondThing_Expect() FUN2_doSecondThing_CMockExpect(__LINE__)
+void FUN2_doSecondThing_CMockExpect(UNITY_LINE_TYPE cmock_line);
+typedef void (* CMOCK_FUN2_doSecondThing_CALLBACK)(int cmock_num_calls);
+void FUN2_doSecondThing_AddCallback(CMOCK_FUN2_doSecondThing_CALLBACK Callback);
+void FUN2_doSecondThing_Stub(CMOCK_FUN2_doSecondThing_CALLBACK Callback);
+#define FUN2_doSecondThing_StubWithCallback FUN2_doSecondThing_Stub
+#define FUN2_returnOne_IgnoreAndReturn(cmock_retval) FUN2_returnOne_CMockIgnoreAndReturn(__LINE__, cmock_retval)
+void FUN2_returnOne_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, uint8_t cmock_to_return);
+#define FUN2_returnOne_StopIgnore() FUN2_returnOne_CMockStopIgnore()
+void FUN2_returnOne_CMockStopIgnore(void);
+#define FUN2_returnOne_ExpectAndReturn(cmock_retval) FUN2_returnOne_CMockExpectAndReturn(__LINE__, cmock_retval)
+void FUN2_returnOne_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, uint8_t cmock_to_return);
+typedef uint8_t (* CMOCK_FUN2_returnOne_CALLBACK)(int cmock_num_calls);
+void FUN2_returnOne_AddCallback(CMOCK_FUN2_returnOne_CALLBACK Callback);
+void FUN2_returnOne_Stub(CMOCK_FUN2_returnOne_CALLBACK Callback);
+#define FUN2_returnOne_StubWithCallback FUN2_returnOne_Stub
 
 #if defined(__GNUC__) && !defined(__ICC) && !defined(__TMS470__)
 #if __GNUC__ > 4 || (__GNUC__ == 4 && (__GNUC_MINOR__ > 6 || (__GNUC_MINOR__ == 6 && __GNUC_PATCHLEVEL__ > 0)))

@@ -5,22 +5,37 @@
 #include "cmock.h"
 #include "mock_function2.h"
 
-static const char* CMockString_doSecondThing = "doSecondThing";
+static const char* CMockString_FUN2_doSecondThing = "FUN2_doSecondThing";
+static const char* CMockString_FUN2_returnOne = "FUN2_returnOne";
 
-typedef struct _CMOCK_doSecondThing_CALL_INSTANCE
+typedef struct _CMOCK_FUN2_doSecondThing_CALL_INSTANCE
 {
   UNITY_LINE_TYPE LineNumber;
   int CallOrder;
 
-} CMOCK_doSecondThing_CALL_INSTANCE;
+} CMOCK_FUN2_doSecondThing_CALL_INSTANCE;
+
+typedef struct _CMOCK_FUN2_returnOne_CALL_INSTANCE
+{
+  UNITY_LINE_TYPE LineNumber;
+  uint8_t ReturnVal;
+  int CallOrder;
+
+} CMOCK_FUN2_returnOne_CALL_INSTANCE;
 
 static struct mock_function2Instance
 {
-  char doSecondThing_IgnoreBool;
-  char doSecondThing_CallbackBool;
-  CMOCK_doSecondThing_CALLBACK doSecondThing_CallbackFunctionPointer;
-  int doSecondThing_CallbackCalls;
-  CMOCK_MEM_INDEX_TYPE doSecondThing_CallInstance;
+  char FUN2_doSecondThing_IgnoreBool;
+  char FUN2_doSecondThing_CallbackBool;
+  CMOCK_FUN2_doSecondThing_CALLBACK FUN2_doSecondThing_CallbackFunctionPointer;
+  int FUN2_doSecondThing_CallbackCalls;
+  CMOCK_MEM_INDEX_TYPE FUN2_doSecondThing_CallInstance;
+  char FUN2_returnOne_IgnoreBool;
+  uint8_t FUN2_returnOne_FinalReturn;
+  char FUN2_returnOne_CallbackBool;
+  CMOCK_FUN2_returnOne_CALLBACK FUN2_returnOne_CallbackFunctionPointer;
+  int FUN2_returnOne_CallbackCalls;
+  CMOCK_MEM_INDEX_TYPE FUN2_returnOne_CallInstance;
 } Mock;
 
 extern jmp_buf AbortFrame;
@@ -31,15 +46,28 @@ void mock_function2_Verify(void)
 {
   UNITY_LINE_TYPE cmock_line = TEST_LINE_NUM;
   CMOCK_MEM_INDEX_TYPE call_instance;
-  call_instance = Mock.doSecondThing_CallInstance;
-  if (Mock.doSecondThing_IgnoreBool)
+  call_instance = Mock.FUN2_doSecondThing_CallInstance;
+  if (Mock.FUN2_doSecondThing_IgnoreBool)
     call_instance = CMOCK_GUTS_NONE;
   if (CMOCK_GUTS_NONE != call_instance)
   {
-    UNITY_SET_DETAIL(CMockString_doSecondThing);
+    UNITY_SET_DETAIL(CMockString_FUN2_doSecondThing);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
   }
-  if (Mock.doSecondThing_CallbackFunctionPointer != NULL)
+  if (Mock.FUN2_doSecondThing_CallbackFunctionPointer != NULL)
+  {
+    call_instance = CMOCK_GUTS_NONE;
+    (void)call_instance;
+  }
+  call_instance = Mock.FUN2_returnOne_CallInstance;
+  if (Mock.FUN2_returnOne_IgnoreBool)
+    call_instance = CMOCK_GUTS_NONE;
+  if (CMOCK_GUTS_NONE != call_instance)
+  {
+    UNITY_SET_DETAIL(CMockString_FUN2_returnOne);
+    UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
+  }
+  if (Mock.FUN2_returnOne_CallbackFunctionPointer != NULL)
   {
     call_instance = CMOCK_GUTS_NONE;
     (void)call_instance;
@@ -59,22 +87,22 @@ void mock_function2_Destroy(void)
   GlobalVerifyOrder = 0;
 }
 
-void doSecondThing(void)
+void FUN2_doSecondThing(void)
 {
   UNITY_LINE_TYPE cmock_line = TEST_LINE_NUM;
-  CMOCK_doSecondThing_CALL_INSTANCE* cmock_call_instance;
-  UNITY_SET_DETAIL(CMockString_doSecondThing);
-  cmock_call_instance = (CMOCK_doSecondThing_CALL_INSTANCE*)CMock_Guts_GetAddressFor(Mock.doSecondThing_CallInstance);
-  Mock.doSecondThing_CallInstance = CMock_Guts_MemNext(Mock.doSecondThing_CallInstance);
-  if (Mock.doSecondThing_IgnoreBool)
+  CMOCK_FUN2_doSecondThing_CALL_INSTANCE* cmock_call_instance;
+  UNITY_SET_DETAIL(CMockString_FUN2_doSecondThing);
+  cmock_call_instance = (CMOCK_FUN2_doSecondThing_CALL_INSTANCE*)CMock_Guts_GetAddressFor(Mock.FUN2_doSecondThing_CallInstance);
+  Mock.FUN2_doSecondThing_CallInstance = CMock_Guts_MemNext(Mock.FUN2_doSecondThing_CallInstance);
+  if (Mock.FUN2_doSecondThing_IgnoreBool)
   {
     UNITY_CLR_DETAILS();
     return;
   }
-  if (!Mock.doSecondThing_CallbackBool &&
-      Mock.doSecondThing_CallbackFunctionPointer != NULL)
+  if (!Mock.FUN2_doSecondThing_CallbackBool &&
+      Mock.FUN2_doSecondThing_CallbackFunctionPointer != NULL)
   {
-    Mock.doSecondThing_CallbackFunctionPointer(Mock.doSecondThing_CallbackCalls++);
+    Mock.FUN2_doSecondThing_CallbackFunctionPointer(Mock.FUN2_doSecondThing_CallbackCalls++);
     UNITY_CLR_DETAILS();
     return;
   }
@@ -84,46 +112,129 @@ void doSecondThing(void)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledEarly);
   if (cmock_call_instance->CallOrder < GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLate);
-  if (Mock.doSecondThing_CallbackFunctionPointer != NULL)
+  if (Mock.FUN2_doSecondThing_CallbackFunctionPointer != NULL)
   {
-    Mock.doSecondThing_CallbackFunctionPointer(Mock.doSecondThing_CallbackCalls++);
+    Mock.FUN2_doSecondThing_CallbackFunctionPointer(Mock.FUN2_doSecondThing_CallbackCalls++);
   }
   UNITY_CLR_DETAILS();
 }
 
-void doSecondThing_CMockIgnore(void)
+void FUN2_doSecondThing_CMockIgnore(void)
 {
-  Mock.doSecondThing_IgnoreBool = (char)1;
+  Mock.FUN2_doSecondThing_IgnoreBool = (char)1;
 }
 
-void doSecondThing_CMockStopIgnore(void)
+void FUN2_doSecondThing_CMockStopIgnore(void)
 {
-  Mock.doSecondThing_IgnoreBool = (char)0;
+  Mock.FUN2_doSecondThing_IgnoreBool = (char)0;
 }
 
-void doSecondThing_CMockExpect(UNITY_LINE_TYPE cmock_line)
+void FUN2_doSecondThing_CMockExpect(UNITY_LINE_TYPE cmock_line)
 {
-  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_doSecondThing_CALL_INSTANCE));
-  CMOCK_doSecondThing_CALL_INSTANCE* cmock_call_instance = (CMOCK_doSecondThing_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
+  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_FUN2_doSecondThing_CALL_INSTANCE));
+  CMOCK_FUN2_doSecondThing_CALL_INSTANCE* cmock_call_instance = (CMOCK_FUN2_doSecondThing_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
   memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
-  Mock.doSecondThing_CallInstance = CMock_Guts_MemChain(Mock.doSecondThing_CallInstance, cmock_guts_index);
-  Mock.doSecondThing_IgnoreBool = (char)0;
+  Mock.FUN2_doSecondThing_CallInstance = CMock_Guts_MemChain(Mock.FUN2_doSecondThing_CallInstance, cmock_guts_index);
+  Mock.FUN2_doSecondThing_IgnoreBool = (char)0;
   cmock_call_instance->LineNumber = cmock_line;
   cmock_call_instance->CallOrder = ++GlobalExpectCount;
 }
 
-void doSecondThing_AddCallback(CMOCK_doSecondThing_CALLBACK Callback)
+void FUN2_doSecondThing_AddCallback(CMOCK_FUN2_doSecondThing_CALLBACK Callback)
 {
-  Mock.doSecondThing_IgnoreBool = (char)0;
-  Mock.doSecondThing_CallbackBool = (char)1;
-  Mock.doSecondThing_CallbackFunctionPointer = Callback;
+  Mock.FUN2_doSecondThing_IgnoreBool = (char)0;
+  Mock.FUN2_doSecondThing_CallbackBool = (char)1;
+  Mock.FUN2_doSecondThing_CallbackFunctionPointer = Callback;
 }
 
-void doSecondThing_Stub(CMOCK_doSecondThing_CALLBACK Callback)
+void FUN2_doSecondThing_Stub(CMOCK_FUN2_doSecondThing_CALLBACK Callback)
 {
-  Mock.doSecondThing_IgnoreBool = (char)0;
-  Mock.doSecondThing_CallbackBool = (char)0;
-  Mock.doSecondThing_CallbackFunctionPointer = Callback;
+  Mock.FUN2_doSecondThing_IgnoreBool = (char)0;
+  Mock.FUN2_doSecondThing_CallbackBool = (char)0;
+  Mock.FUN2_doSecondThing_CallbackFunctionPointer = Callback;
+}
+
+uint8_t FUN2_returnOne(void)
+{
+  UNITY_LINE_TYPE cmock_line = TEST_LINE_NUM;
+  CMOCK_FUN2_returnOne_CALL_INSTANCE* cmock_call_instance;
+  UNITY_SET_DETAIL(CMockString_FUN2_returnOne);
+  cmock_call_instance = (CMOCK_FUN2_returnOne_CALL_INSTANCE*)CMock_Guts_GetAddressFor(Mock.FUN2_returnOne_CallInstance);
+  Mock.FUN2_returnOne_CallInstance = CMock_Guts_MemNext(Mock.FUN2_returnOne_CallInstance);
+  if (Mock.FUN2_returnOne_IgnoreBool)
+  {
+    UNITY_CLR_DETAILS();
+    if (cmock_call_instance == NULL)
+      return Mock.FUN2_returnOne_FinalReturn;
+    Mock.FUN2_returnOne_FinalReturn = cmock_call_instance->ReturnVal;
+    return cmock_call_instance->ReturnVal;
+  }
+  if (!Mock.FUN2_returnOne_CallbackBool &&
+      Mock.FUN2_returnOne_CallbackFunctionPointer != NULL)
+  {
+    uint8_t cmock_cb_ret = Mock.FUN2_returnOne_CallbackFunctionPointer(Mock.FUN2_returnOne_CallbackCalls++);
+    UNITY_CLR_DETAILS();
+    return cmock_cb_ret;
+  }
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
+  cmock_line = cmock_call_instance->LineNumber;
+  if (cmock_call_instance->CallOrder > ++GlobalVerifyOrder)
+    UNITY_TEST_FAIL(cmock_line, CMockStringCalledEarly);
+  if (cmock_call_instance->CallOrder < GlobalVerifyOrder)
+    UNITY_TEST_FAIL(cmock_line, CMockStringCalledLate);
+  if (Mock.FUN2_returnOne_CallbackFunctionPointer != NULL)
+  {
+    cmock_call_instance->ReturnVal = Mock.FUN2_returnOne_CallbackFunctionPointer(Mock.FUN2_returnOne_CallbackCalls++);
+  }
+  UNITY_CLR_DETAILS();
+  return cmock_call_instance->ReturnVal;
+}
+
+void FUN2_returnOne_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, uint8_t cmock_to_return)
+{
+  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_FUN2_returnOne_CALL_INSTANCE));
+  CMOCK_FUN2_returnOne_CALL_INSTANCE* cmock_call_instance = (CMOCK_FUN2_returnOne_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
+  memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
+  Mock.FUN2_returnOne_CallInstance = CMock_Guts_MemChain(Mock.FUN2_returnOne_CallInstance, cmock_guts_index);
+  Mock.FUN2_returnOne_IgnoreBool = (char)0;
+  cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ReturnVal = cmock_to_return;
+  Mock.FUN2_returnOne_IgnoreBool = (char)1;
+}
+
+void FUN2_returnOne_CMockStopIgnore(void)
+{
+  if(Mock.FUN2_returnOne_IgnoreBool)
+    Mock.FUN2_returnOne_CallInstance = CMock_Guts_MemNext(Mock.FUN2_returnOne_CallInstance);
+  Mock.FUN2_returnOne_IgnoreBool = (char)0;
+}
+
+void FUN2_returnOne_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, uint8_t cmock_to_return)
+{
+  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_FUN2_returnOne_CALL_INSTANCE));
+  CMOCK_FUN2_returnOne_CALL_INSTANCE* cmock_call_instance = (CMOCK_FUN2_returnOne_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
+  memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
+  Mock.FUN2_returnOne_CallInstance = CMock_Guts_MemChain(Mock.FUN2_returnOne_CallInstance, cmock_guts_index);
+  Mock.FUN2_returnOne_IgnoreBool = (char)0;
+  cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->CallOrder = ++GlobalExpectCount;
+  cmock_call_instance->ReturnVal = cmock_to_return;
+}
+
+void FUN2_returnOne_AddCallback(CMOCK_FUN2_returnOne_CALLBACK Callback)
+{
+  Mock.FUN2_returnOne_IgnoreBool = (char)0;
+  Mock.FUN2_returnOne_CallbackBool = (char)1;
+  Mock.FUN2_returnOne_CallbackFunctionPointer = Callback;
+}
+
+void FUN2_returnOne_Stub(CMOCK_FUN2_returnOne_CALLBACK Callback)
+{
+  Mock.FUN2_returnOne_IgnoreBool = (char)0;
+  Mock.FUN2_returnOne_CallbackBool = (char)0;
+  Mock.FUN2_returnOne_CallbackFunctionPointer = Callback;
 }
 

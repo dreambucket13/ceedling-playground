@@ -19,17 +19,17 @@ void tearDown(void)
 
 
 
-void test_doFirstThing_Should_DoSecondThingIfConditionIsTrue(void)
+void test_FUN1_doFirstThing_Should_DoSecondThingIfConditionIsTrue(void)
 
 {
 
-    setCondition(1);
+    FUN1_setCondition(1);
 
-    doSecondThing_CMockExpect(16);
+    FUN2_doSecondThing_CMockExpect(16);
 
 
 
-    doFirstThing();
+    FUN1_doFirstThing();
 
 
 
@@ -37,19 +37,37 @@ void test_doFirstThing_Should_DoSecondThingIfConditionIsTrue(void)
 
 
 
-void test_doFirstThing_Should_NotDoSecondThingIfConditionIsFalse(void)
+void test_FUN1_doFirstThing_Should_NotDoSecondThingIfConditionIsFalse(void)
 
 {
 
-    setCondition(0);
-
-    doSecondThing_CMockExpect(25);
+    FUN1_setCondition(0);
 
 
 
-    doFirstThing();
+    FUN1_doFirstThing();
 
 
+
+}
+
+
+
+void test_FUN1_staticFunctionTest_Should_ReturnOneAndNotExpectFUN3Calls(void)
+
+{
+
+
+
+    FUN2_returnOne_CMockExpectAndReturn(33, 1);
+
+
+
+    UnityAssertEqualNumber((UNITY_INT)((1)), (UNITY_INT)((FUN1_staticFunctionTest())), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(35), UNITY_DISPLAY_STYLE_INT);
 
 
 

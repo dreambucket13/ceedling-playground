@@ -12,8 +12,9 @@ char* GlobalOrderError;
 /*=======External Functions This Runner Calls=====*/
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_doFirstThing_Should_DoSecondThingIfConditionIsTrue(void);
-extern void test_doFirstThing_Should_NotDoSecondThingIfConditionIsFalse(void);
+extern void test_FUN1_doFirstThing_Should_DoSecondThingIfConditionIsTrue(void);
+extern void test_FUN1_doFirstThing_Should_NotDoSecondThingIfConditionIsFalse(void);
+extern void test_FUN1_staticFunctionTest_Should_ReturnOneAndNotExpectFUN3Calls(void);
 
 
 /*=======Mock Management=====*/
@@ -81,8 +82,9 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test_function1.c");
-  run_test(test_doFirstThing_Should_DoSecondThingIfConditionIsTrue, "test_doFirstThing_Should_DoSecondThingIfConditionIsTrue", 13);
-  run_test(test_doFirstThing_Should_NotDoSecondThingIfConditionIsFalse, "test_doFirstThing_Should_NotDoSecondThingIfConditionIsFalse", 22);
+  run_test(test_FUN1_doFirstThing_Should_DoSecondThingIfConditionIsTrue, "test_FUN1_doFirstThing_Should_DoSecondThingIfConditionIsTrue", 13);
+  run_test(test_FUN1_doFirstThing_Should_NotDoSecondThingIfConditionIsFalse, "test_FUN1_doFirstThing_Should_NotDoSecondThingIfConditionIsFalse", 22);
+  run_test(test_FUN1_staticFunctionTest_Should_ReturnOneAndNotExpectFUN3Calls, "test_FUN1_staticFunctionTest_Should_ReturnOneAndNotExpectFUN3Calls", 30);
 
   CMock_Guts_MemFreeFinal();
   return UnityEnd();
