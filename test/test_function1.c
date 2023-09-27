@@ -35,3 +35,19 @@ void test_FUN1_staticFunctionTest_Should_ReturnOneAndNotExpectFUN3Calls(void)
     TEST_ASSERT_EQUAL(1,FUN1_staticFunctionTest());
 
 }
+
+void test_FUN2_ReturnViaReference_inject_via_pointer(void){
+
+    uint8_t num1 = 1;
+    uint8_t num2 = 2;
+    uint8_t func2_result = 3;
+
+
+    FUN2_AddAndReturnViaReference_ExpectAnyArgs();
+    FUN2_AddAndReturnViaReference_ReturnThruPtr_result(&func2_result);
+
+    uint8_t result = FUN1_add(num1, num2);
+
+    TEST_ASSERT_EQUAL(3, result);
+
+}

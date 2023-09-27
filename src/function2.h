@@ -6,5 +6,6 @@
 
 void FUN2_doSecondThing();
 uint8_t FUN2_returnOne();
+void FUN2_AddAndReturnViaReference(uint8_t input1, uint8_t input2, uint8_t* result);
 
 #endif //_FUNCTION2_H

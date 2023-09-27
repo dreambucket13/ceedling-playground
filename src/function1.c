@@ -31,3 +31,12 @@ uint8_t FUN1_getCondition(){
 void FUN1_setCondition(uint8_t input){
     condition = input;
 }
+
+uint8_t FUN1_add(uint8_t input1, uint8_t input2){
+    
+    uint8_t result = 0;
+    
+    FUN2_AddAndReturnViaReference(input1, input2, &result);
+
+    return result;
+}
